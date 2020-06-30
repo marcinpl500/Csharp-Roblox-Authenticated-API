@@ -1,0 +1,15 @@
+C:\Users\Esquire\Desktop\Coding\Active Projects\RoSharper\ConsoleApp1\bin\Debug\netcoreapp3.1\RoSharper.exe
+C:\Users\Esquire\Desktop\Coding\Active Projects\RoSharper\ConsoleApp1\obj\Debug\netcoreapp3.1\RoSharper.csprojAssemblyReference.cache
+C:\Users\Esquire\Desktop\Coding\Active Projects\RoSharper\ConsoleApp1\obj\Debug\netcoreapp3.1\RoSharper.AssemblyInfoInputs.cache
+C:\Users\Esquire\Desktop\Coding\Active Projects\RoSharper\ConsoleApp1\obj\Debug\netcoreapp3.1\RoSharper.AssemblyInfo.cs
+C:\Users\Esquire\Desktop\Coding\Active Projects\RoSharper\ConsoleApp1\bin\Debug\netcoreapp3.1\RoSharper.deps.json
+C:\Users\Esquire\Desktop\Coding\Active Projects\RoSharper\ConsoleApp1\bin\Debug\netcoreapp3.1\RoSharper.runtimeconfig.json
+C:\Users\Esquire\Desktop\Coding\Active Projects\RoSharper\ConsoleApp1\bin\Debug\netcoreapp3.1\RoSharper.runtimeconfig.dev.json
+C:\Users\Esquire\Desktop\Coding\Active Projects\RoSharper\ConsoleApp1\bin\Debug\netcoreapp3.1\RoSharper.dll
+C:\Users\Esquire\Desktop\Coding\Active Projects\RoSharper\ConsoleApp1\bin\Debug\netcoreapp3.1\RoSharper.pdb
+C:\Users\Esquire\Desktop\Coding\Active Projects\RoSharper\ConsoleApp1\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\Esquire\Desktop\Coding\Active Projects\RoSharper\ConsoleApp1\obj\Debug\netcoreapp3.1\RoSharper.csproj.CoreCompileInputs.cache
+C:\Users\Esquire\Desktop\Coding\Active Projects\RoSharper\ConsoleApp1\obj\Debug\netcoreapp3.1\RoSharper.csproj.CopyComplete
+C:\Users\Esquire\Desktop\Coding\Active Projects\RoSharper\ConsoleApp1\obj\Debug\netcoreapp3.1\RoSharper.dll
+C:\Users\Esquire\Desktop\Coding\Active Projects\RoSharper\ConsoleApp1\obj\Debug\netcoreapp3.1\RoSharper.pdb
+C:\Users\Esquire\Desktop\Coding\Active Projects\RoSharper\ConsoleApp1\obj\Debug\netcoreapp3.1\RoSharper.genruntimeconfig.cache

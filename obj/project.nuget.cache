@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "pAvncvQhwA5CG6le5loVds8Zkm46lteF/G6kFWRuSQlhJ68QIMLADEDMH71AI3VXvGe5x9OGrlt+cht/5kU+Xw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Esquire\\Desktop\\Coding\\Active Projects\\RoSharper\\ConsoleApp1\\RoSharper.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Esquire\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
