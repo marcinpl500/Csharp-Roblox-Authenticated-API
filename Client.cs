@@ -108,6 +108,14 @@ namespace RoSharper
             APIRequest.Headers.Add("DNT", "1");
             APIRequest.Headers.Add("x-csrf-token", Token);
 
+<<<<<<< HEAD
+=======
+            APIRequest.Headers.Add(HttpRequestHeader.Cookie, $".ROBLOSECURITY={CookieJar};");
+            APIRequest.Headers.Add("x-csrf-token", Token);
+            APIRequest.Headers.Add("Access-Control-Expose-Headers", "X-CSRF-TOKEN");
+
+            APIRequest.ContentType = "application/json; charset=utf-8";
+>>>>>>> e5d055fcb920f1371a5d5c9e861da0ca4cfc0f81
 
             Console.WriteLine("\n\nMy headers");
             foreach (var key in APIRequest.Headers.Keys)
