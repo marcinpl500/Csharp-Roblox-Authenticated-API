@@ -13,7 +13,7 @@ namespace RoSharper
     class Client
     {
         public string CookieJar = "";
-        private string myass = "aaaaass";
+        private string Token = " empty ";
         private static WebClient APIClient = new WebClient();
 
         public Client(params string[] _CookieJar)
@@ -69,7 +69,7 @@ namespace RoSharper
             {
                 Console.WriteLine("Roblox Headers");
                 foreach (var key in e.Response.Headers.Keys) Console.WriteLine($"{key} || {e.Response.Headers[key.ToString()]}");
-                myass = e.Response.Headers["x-csrf-token"];
+                Token = e.Response.Headers["x-csrf-token"];
             };
 
             return true;
@@ -94,7 +94,7 @@ namespace RoSharper
             APIRequest.Method = "PATCH";
 
             APIRequest.Headers.Add(HttpRequestHeader.Cookie, $".ROBLOSECURITY={CookieJar};");
-            APIRequest.Headers.Add("x-csrf-token", myass);
+            APIRequest.Headers.Add("x-csrf-token", Token);
             APIRequest.Headers.Add("Access-Control-Expose-Headers", "X-CSRF-TOKEN");
 
             APIRequest.ContentType = "application/json; charset=utf-8";
