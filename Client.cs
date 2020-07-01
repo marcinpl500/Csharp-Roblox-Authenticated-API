@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Dynamic;
+using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,8 +12,8 @@ namespace RoSharper
 {
     class Client
     {
-        public CookieContainer CookieJar;
-
+        public string CookieJar = "";
+        private string myass = "aaaaass";
         private static WebClient APIClient = new WebClient();
 
         public Client(params string[] _CookieJar)
@@ -20,11 +21,7 @@ namespace RoSharper
             if (_CookieJar.Length == 0) CookieJar = null;
             else if (_CookieJar.Length == 1)
             {
-                APIClient.Headers.Add
-                    (
-                        HttpRequestHeader.Cookie, $".ROBLOSECURITY={_CookieJar[0]};"
-                    );
-
+                CookieJar = _CookieJar[0];
                 APIClient.Headers[HttpRequestHeader.ContentType] = "application/json";
                 APIClient.Encoding = System.Text.Encoding.UTF8;
             }
@@ -56,21 +53,23 @@ namespace RoSharper
             return UserData;
         }
 
-        public async Task<bool> Authorize()
+        public bool Authorize()
         {
             Uri URI = new Uri("https://www.roblox.com/favorite/toggle");
 
             try
             {
-                var Response = await APIClient.UploadStringTaskAsync(URI, "POST", ""); // Should error
+                var APIRequest = WebRequest.Create(URI);
+                APIRequest.Method = "POST";
+                APIRequest.Headers.Add(HttpRequestHeader.Cookie, CookieJar);
+                var Response = APIRequest.GetResponse();
+
             }
-            catch (WebException e) when (e.Status == WebExceptionStatus.ProtocolError && ((HttpWebResponse)e.Response).StatusCode == HttpStatusCode.Forbidden)
+            catch (WebException e)
             {
-                WebHeaderCollection ResponseHeaders = APIClient.ResponseHeaders;
-                var Response = (HttpWebResponse)e.Response;
-                Console.WriteLine(Response.Headers["X-CSRF-TOKEN"]);
-                Console.WriteLine("403");
-                APIClient.Headers["X-CSRF-TOKEN"] = Response.Headers["X-CSRF-TOKEN"];
+                Console.WriteLine("Roblox Headers");
+                foreach (var key in e.Response.Headers.Keys) Console.WriteLine($"{key} || {e.Response.Headers[key.ToString()]}");
+                myass = e.Response.Headers["x-csrf-token"];
             };
 
             return true;
@@ -87,35 +86,41 @@ namespace RoSharper
             return UserData;
         }
 
-        public async Task<bool> Promote(int UserID, int GroupID)
+        public async Task<bool> Shout(int UserID, int GroupID)
         {
-            Uri URI = new Uri("https://groups.roblox.com/v1/groups/4953490/users/" + UserID);
+            Uri URI = new Uri($"https://groups.roblox.com/v1/groups/${GroupID}/status");
 
-            APIClient.Headers.Add(HttpRequestHeader.Accept, "application/json");
+            WebRequest APIRequest = WebRequest.Create(URI);
+            APIRequest.Method = "PATCH";
 
-            APIClient.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+            APIRequest.Headers.Add(HttpRequestHeader.Cookie, $".ROBLOSECURITY={CookieJar};");
+            APIRequest.Headers.Add("x-csrf-token", myass);
+            APIRequest.Headers.Add("Access-Control-Expose-Headers", "X-CSRF-TOKEN");
 
-            APIClient.Headers.Add(HttpRequestHeader.ContentEncoding, "application/json");
+            APIRequest.ContentType = "application/json; charset=utf-8";
 
-            for (int i = 0; i < APIClient.Headers.Count; i++)
+            Console.WriteLine("\n\nMy headers");
+            foreach(var key in APIRequest.Headers.Keys)
             {
-                Console.WriteLine(APIClient.Headers.GetKey(i));
+                Console.WriteLine($"{key} || {APIRequest.Headers[key.ToString()]}");
             }
-
-            var JSONData = new { roleId = 11 };
-
-            try 
-            { 
-            var Response = await APIClient.UploadStringTaskAsync(URI, "PATCH", JsonConvert.SerializeObject(JSONData));
-            } catch(WebException e)
+            string PostData = "{\"message\": \"ok gamers\"}";
+            Console.WriteLine(PostData);
+            using(StreamWriter StreamW = new StreamWriter(APIRequest.GetRequestStream()))
             {
-                Console.WriteLine(e.Response.Headers["Content-Type"]);
-                var Response = (HttpWebResponse)e.Response;
-                var encoding = System.Text.Encoding.UTF8;
-                using (var reader = new System.IO.StreamReader(Response.GetResponseStream(), encoding))
+                StreamW.Write(PostData);
+                StreamW.Flush();
+                StreamW.Close();
+
+                var HTTPResponse = await APIRequest.GetResponseAsync();
+
+                HTTPResponse = (HttpWebResponse)HTTPResponse;
+
+                using(StreamReader x = new StreamReader(HTTPResponse.GetResponseStream()))
                 {
-                    string responseText = reader.ReadToEnd();
-                }
+                    var Result = x.ReadToEnd();
+                    Console.WriteLine(x);
+                };
             }
 
             return true;

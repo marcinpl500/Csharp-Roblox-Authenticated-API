@@ -11,10 +11,11 @@ namespace RoSharper
         public static WebClient APIClient = new WebClient();
         static async Task Main(string[] args)
         {
-            Client RClient = new Client("COOKIE");
-            await RClient.Authorize();
+            Client RClient = new Client("");
+            await Task.Delay(TimeSpan.FromSeconds(3));
+            RClient.Authorize();
 
-            await RClient.Promote(4953490, 4953490);
+            await RClient.Shout(1085713226, 4953490);
 
             await RClient.GetSelf();
         }
