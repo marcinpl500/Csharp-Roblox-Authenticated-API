@@ -15,9 +15,9 @@ namespace RoSharper
             await Task.Delay(TimeSpan.FromSeconds(3));
             RClient.Authorize();
 
-            await RClient.Shout(1085713226, 4953490);
+            await RClient.SetRank(1085713226, 4953490, 33096185);
 
-            await RClient.GetSelf();
+            // await RClient.GetSelf();
         }
     }
 }

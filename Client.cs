@@ -13,7 +13,7 @@ namespace RoSharper
     class Client
     {
         public string CookieJar = "";
-        private string myass = "aaaaass";
+        private string Token = " empty ";
         private static WebClient APIClient = new WebClient();
 
         public Client(params string[] _CookieJar)
@@ -62,6 +62,11 @@ namespace RoSharper
                 var APIRequest = WebRequest.Create(URI);
                 APIRequest.Method = "POST";
                 APIRequest.Headers.Add(HttpRequestHeader.Cookie, CookieJar);
+                APIRequest.Headers.Add("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:66.0) Gecko/20100101 Firefox/66.0");
+                APIRequest.Headers.Add("Accept", "application/json, text/plain, */*");
+                APIRequest.Headers.Add("Accept-Language", "en-US,en;q=0.5");
+                APIRequest.Headers.Add("Origin", "https://www.roblox.com");
+                APIRequest.Headers.Add("DNT", "1");
                 var Response = APIRequest.GetResponse();
 
             }
@@ -69,7 +74,7 @@ namespace RoSharper
             {
                 Console.WriteLine("Roblox Headers");
                 foreach (var key in e.Response.Headers.Keys) Console.WriteLine($"{key} || {e.Response.Headers[key.ToString()]}");
-                myass = e.Response.Headers["x-csrf-token"];
+                Token = e.Response.Headers["x-csrf-token"];
             };
 
             return true;
@@ -80,47 +85,64 @@ namespace RoSharper
             Uri URI = new Uri("https://www.roblox.com/my/profile");
 
             var Response = await APIClient.DownloadStringTaskAsync(URI);
-            
+
             User UserData = JsonConvert.DeserializeObject<User>(Response);
             Console.WriteLine(UserData.Username);
             return UserData;
         }
 
-        public async Task<bool> Shout(int UserID, int GroupID)
+        public async Task<bool> SetRank(int GroupID, int UserID, int RankID)
         {
-            Uri URI = new Uri($"https://groups.roblox.com/v1/groups/${GroupID}/status");
+            Uri URI = new Uri($"https://groups.roblox.com/v1/groups/{GroupID}/users/{UserID}");
 
             WebRequest APIRequest = WebRequest.Create(URI);
             APIRequest.Method = "PATCH";
+            string CookieFormatted = ".ROBLOSECURITY=" + CookieJar + ";";
+            Console.WriteLine(CookieJar);
+            APIRequest.Headers.Add("Cookie", CookieJar);
+            APIRequest.Headers.Add("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:66.0) Gecko/20100101 Firefox/66.0");
+            APIRequest.Headers.Add("Accept", "application/json, text/plain, */*");
+            APIRequest.Headers.Add("Accept-Language", "en-US,en;q=0.5");
+            APIRequest.Headers.Add("Origin", "https://www.roblox.com");
+            APIRequest.Headers.Add("Content-Type", "application/json");
+            APIRequest.Headers.Add("DNT", "1");
+            APIRequest.Headers.Add("x-csrf-token", Token);
 
-            APIRequest.Headers.Add(HttpRequestHeader.Cookie, $".ROBLOSECURITY={CookieJar};");
-            APIRequest.Headers.Add("x-csrf-token", myass);
-            APIRequest.Headers.Add("Access-Control-Expose-Headers", "X-CSRF-TOKEN");
-
-            APIRequest.ContentType = "application/json; charset=utf-8";
 
             Console.WriteLine("\n\nMy headers");
-            foreach(var key in APIRequest.Headers.Keys)
+            foreach (var key in APIRequest.Headers.Keys)
             {
                 Console.WriteLine($"{key} || {APIRequest.Headers[key.ToString()]}");
             }
-            string PostData = "{\"message\": \"ok gamers\"}";
+            string PostData = $"{{\"roleId\": \"{RankID}\"}}";
             Console.WriteLine(PostData);
-            using(StreamWriter StreamW = new StreamWriter(APIRequest.GetRequestStream()))
+            Console.WriteLine(PostData);
+            using (StreamWriter StreamW = new StreamWriter(APIRequest.GetRequestStream()))
             {
                 StreamW.Write(PostData);
                 StreamW.Flush();
                 StreamW.Close();
 
-                var HTTPResponse = await APIRequest.GetResponseAsync();
-
-                HTTPResponse = (HttpWebResponse)HTTPResponse;
-
-                using(StreamReader x = new StreamReader(HTTPResponse.GetResponseStream()))
+                WebResponse HTTPResponse;
+                try
                 {
-                    var Result = x.ReadToEnd();
-                    Console.WriteLine(x);
-                };
+                    HTTPResponse = await APIRequest.GetResponseAsync();
+                    HTTPResponse = (HttpWebResponse)HTTPResponse;
+
+                    using (StreamReader x = new StreamReader(HTTPResponse.GetResponseStream()))
+                    {
+                        var Result = x.ReadToEnd();
+                        Console.WriteLine(x);
+                    };
+                }
+                catch(WebException e)
+                {
+                    Console.WriteLine(e);
+                    Token = e.Response.Headers["x-csrf-token"];
+                    await Task.Delay(TimeSpan.FromSeconds(3));
+                    await SetRank(UserID, GroupID, RankID);
+                }
+
             }
 
             return true;
