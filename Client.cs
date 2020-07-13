@@ -69,35 +69,6 @@ namespace RoSharper
 
         public async Task<bool> SetRankTest(int GroupID, int UserID, int RankID)
         {
-<<<<<<< HEAD
-=======
-            Uri URI = new Uri($"https://groups.roblox.com/v1/groups/{GroupID}/users/{UserID}");
-
-            WebRequest APIRequest = WebRequest.Create(URI);
-            APIRequest.Method = "PATCH";
-            string CookieFormatted = ".ROBLOSECURITY=" + CookieJar + ";";
-            Console.WriteLine(CookieJar);
-            APIRequest.Headers.Add("Cookie", CookieJar);
-            APIRequest.Headers.Add("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:66.0) Gecko/20100101 Firefox/66.0");
-            APIRequest.Headers.Add("Accept", "application/json, text/plain, */*");
-            APIRequest.Headers.Add("Accept-Language", "en-US,en;q=0.5");
-            APIRequest.Headers.Add("Origin", "https://www.roblox.com");
-            APIRequest.Headers.Add("Content-Type", "application/json");
-            APIRequest.Headers.Add("DNT", "1");
-            APIRequest.Headers.Add("x-csrf-token", Token);
-
-            APIRequest.Headers.Add(HttpRequestHeader.Cookie, $".ROBLOSECURITY={CookieJar};");
-            APIRequest.Headers.Add("x-csrf-token", Token);
-            APIRequest.Headers.Add("Access-Control-Expose-Headers", "X-CSRF-TOKEN");
-
-            APIRequest.ContentType = "application/json; charset=utf-8";
-
-            Console.WriteLine("\n\nMy headers");
-            foreach (var key in APIRequest.Headers.Keys)
-            {
-                Console.WriteLine($"{key} || {APIRequest.Headers[key.ToString()]}");
-            }
->>>>>>> 00e5f7837a7eb3205190057fbc3b78ad056bd0ca
             string PostData = $"{{\"roleId\": \"{RankID}\"}}";
             var Request = APIRequestBuilder.CreateWebRequest(true, $"https://groups.roblox.com/v1/groups/{GroupID}/users/{UserID}", CookieJar, "PATCH", PostData);
             try
