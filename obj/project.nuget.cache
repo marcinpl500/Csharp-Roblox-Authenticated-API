@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "w2u5vfZ/L3nHv5ahjfvEOEkfGDkmK2JCloYsqZ6TZrusbfv0xGc8DpfK2fdzgiYRlEmoIEUDXRwrDFdyA6CbeA==",
+  "dgSpecHash": "elOeEsTMmd4w1yL61jEzvlGtjbL0UlvksQD1AX4vzpb5wIeS6xn7kDjD+vTYLEHXPiJO42dMJuFwcsr3gJHd4g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Esquire\\Desktop\\Coding\\Active Projects\\RoSharper\\ConsoleApp1\\RoSharper.csproj",
+  "projectFilePath": "C:\\Users\\Esquire\\Desktop\\Coding\\Active_Projects\\C#\\C# 2\\RoSharper\\ConsoleApp1\\RoSharper.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Esquire\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
   ],

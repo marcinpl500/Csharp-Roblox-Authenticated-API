@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Newtonsoft;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Linq;
 
 namespace RoSharper
 {
@@ -105,9 +106,16 @@ namespace RoSharper
                 Console.WriteLine(e.Message);
                 return false;
             }
+            int[] x = { 1, 2, 3, 4, 4 };
             var Data = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(JSON);
-            var Roles = Data["roles"];
-            Console.WriteLine(Roles[1]);
+            JArray Roles = Data["roles"];
+            var RolesList = Roles.Value<JArray>().OrderBy(x => x.SelectToken("rank")).ToList();
+
+            foreach(var item in RolesList)
+            {
+                Console.WriteLine(item);
+            }
+
             return true;
         }
     }

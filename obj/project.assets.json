@@ -58,11 +58,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Esquire\\Desktop\\Coding\\Active Projects\\RoSharper\\ConsoleApp1\\RoSharper.csproj",
+      "projectUniqueName": "C:\\Users\\Esquire\\Desktop\\Coding\\Active_Projects\\C#\\C# 2\\RoSharper\\ConsoleApp1\\RoSharper.csproj",
       "projectName": "RoSharper",
-      "projectPath": "C:\\Users\\Esquire\\Desktop\\Coding\\Active Projects\\RoSharper\\ConsoleApp1\\RoSharper.csproj",
+      "projectPath": "C:\\Users\\Esquire\\Desktop\\Coding\\Active_Projects\\C#\\C# 2\\RoSharper\\ConsoleApp1\\RoSharper.csproj",
       "packagesPath": "C:\\Users\\Esquire\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Esquire\\Desktop\\Coding\\Active Projects\\RoSharper\\ConsoleApp1\\obj\\",
+      "outputPath": "C:\\Users\\Esquire\\Desktop\\Coding\\Active_Projects\\C#\\C# 2\\RoSharper\\ConsoleApp1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
