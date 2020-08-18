@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft;
@@ -16,7 +17,12 @@ namespace RoSharper
 
             // await RClient.SetRankTest(4953490, 1505886708, 34179654);
 
-            await RClient.GetGroupRanks(1);
+            List<Role> Roles = await RClient.GetGroupRanks(499);
+
+            foreach(Role role in Roles)
+            {
+                Console.WriteLine($"{role.Rank} | {role.Name} | {role.MemberCount}");
+            }
         }
     }
 }

@@ -89,7 +89,7 @@ namespace RoSharper
             return true;
         }
 
-        public async Task<bool> GetGroupRanks(int GroupID)
+        public async Task<List<Role>> GetGroupRanks(int GroupID)
         {
             var Request = APIRequestBuilder.CreateWebRequest(false, $"https://groups.roblox.com/v1/groups/{GroupID}/roles");
             string JSON = "";
@@ -104,19 +104,35 @@ namespace RoSharper
             catch (WebException e)
             {
                 Console.WriteLine(e.Message);
-                return false;
+                throw new Exception(e.Message);
             }
-            int[] x = { 1, 2, 3, 4, 4 };
             var Data = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(JSON);
             JArray Roles = Data["roles"];
-            var RolesList = Roles.Value<JArray>().OrderBy(x => x.SelectToken("rank")).ToList();
+            var JTokenList = Roles.Value<JArray>().OrderBy(x => x.SelectToken("rank")).ToList();
 
-            foreach(var item in RolesList)
+            List<Role> RolesList = new List<Role>();
+
+            foreach(var item in JTokenList)
             {
-                Console.WriteLine(item);
+                RolesList.Add(
+                        new Role
+                        {
+                            Id = (int)item.SelectToken("id"),
+                            Name = (string)item.SelectToken("name"),
+                            Rank = (int)item.SelectToken("rank"),
+                            MemberCount = (int)item.SelectToken("memberCount")
+                        }
+                    );
             }
 
-            return true;
+            return RolesList;
         }
+    }
+    public class Role
+    {
+        public int Id;
+        public string Name;
+        public int Rank;
+        public int MemberCount;
     }
 }
